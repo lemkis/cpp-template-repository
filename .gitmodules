@@ -1,0 +1,3 @@
+[submodule "external/oclint"]
+	path = external/oclint
+	url = https://github.com/oclint/oclint.git
