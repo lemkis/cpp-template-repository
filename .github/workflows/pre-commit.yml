@@ -28,7 +28,7 @@ jobs:
       run: ./scripts/make_debug.sh
     - name: Run pre-commit on changed files
       run: pre-commit run
-    - name: Save value of pre-commit in github output variable
+    - name: Save value of pre-commit in Github output variable
       run:  echo "pre-commit-result=$?" && echo "pre-commit-result=$?" >>  $GITHUB_OUTPUT  
       id: run_pre_commit
     - name: Pre-commit check
