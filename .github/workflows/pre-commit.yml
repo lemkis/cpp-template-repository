@@ -27,9 +27,7 @@ jobs:
     - name: Build project
       run: ./scripts/make_debug.sh
     - name: Run pre-commit on changed files
-      run: pre-commit run
-    - name: Save value of pre-commit in Github output variable
-      run:  echo "pre-commit-result=$?" && echo "pre-commit-result=$?" >>  $GITHUB_OUTPUT  
+      run: if pre-commit run; then  echo "pre-commit-result=0" >>  $GITHUB_OUTPUT else echo "pre-commit-result=1" >>  $GITHUB_OUTPUT fi
       id: run_pre_commit
     - name: Pre-commit check
       if: steps.run_pre_commit.outputs.pre-commit-result > 0
