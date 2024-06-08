@@ -4,6 +4,7 @@ on:
   pull_request:
   push:
     branches: [main]
+    paths: ['**.c', '**.cpp', '**.h', '**.hpp', '**.cxx', '**.hxx', '**.cc']
 
 jobs:
   pre-commit:
@@ -12,5 +13,12 @@ jobs:
     - uses: actions/checkout@v4
     - name: Install cppcheck
       run: sudo apt install cppcheck
-    - uses: actions/setup-python@v3
-    - uses: pre-commit/action@v3.0.1
+    - name: Install llvm
+      run: sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12' 
+    - name: Configure
+      run: ./scripts/configure.sh 
+    - name: Build project
+      run: ./scripts/make_debug.sh
