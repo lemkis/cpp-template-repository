@@ -24,3 +24,5 @@ jobs:
       run: ./scripts/configure.sh 
     - name: Build project
       run: ./scripts/make_debug.sh
+    - name: Run pre-commit on changed files
+      run: source ./.venv/bin/activate && pre-commit run
