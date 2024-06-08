@@ -15,6 +15,8 @@ jobs:
       run: sudo apt install cppcheck
     - name: Install llvm
       run: sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
+    - name: Install standard library headers for clang and clang tools
+      run: sudo apt install clang-tidy-18 clang-format-18
     - uses: actions/setup-python@v5
       with:
         python-version: '3.12' 
