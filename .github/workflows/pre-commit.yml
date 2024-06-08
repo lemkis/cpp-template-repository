@@ -27,7 +27,7 @@ jobs:
     - name: Build project
       run: ./scripts/make_debug.sh
     - name: Run pre-commit on changed files
-      run:  echo "pre-commit-result=$(source ./.venv/bin/activate && pre-commit run)" >>  $GITHUB_OUTPUT  
+      run:  echo "pre-commit-result=$(bash ./script/run_all_hooks.sh)" >>  $GITHUB_OUTPUT  
       id: run_pre_commit
     - name: Pre-commit check
       if: steps.run_pre_commit.outputs.pre-commit-result > 0
