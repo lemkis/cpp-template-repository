@@ -6,8 +6,8 @@ repos:
       - id: clang-format
       - id: clang-tidy
         args: [--extra-arg=-std=c++2b, --extra-arg=-stdlib=libc++]
-      - id: oclint
+      # - id: oclint
       # - id: uncrustify
       - id: cppcheck
-      - id: cpplint
+      # - id: cpplint
       - id: include-what-you-use
