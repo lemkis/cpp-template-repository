@@ -11,8 +11,8 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Install cppcheck
-      run: sudo app install cppcheck
+      run: sudo apt install cppcheck
     - name: Install include-what-you-use
-      run: sudo app install include-what-you-use
+      run: sudo apt install include-what-you-use
     - uses: actions/setup-python@v3
     - uses: pre-commit/action@v3.0.1
