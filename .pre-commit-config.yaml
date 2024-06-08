@@ -10,7 +10,7 @@ repos:
     hooks:
       - id: clang-format
       - id: clang-tidy
-        args: [--extra-arg=-std=c++2b, --extra-arg=-stdlib=libc++, -p build/debug]
+        args: [ --extra-arg=-std=c++2b, --extra-arg=-stdlib=libc++, -p=build/debug]
       # - id: oclint
       # - id: uncrustify
       - id: cppcheck
