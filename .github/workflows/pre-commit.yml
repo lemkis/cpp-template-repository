@@ -5,6 +5,8 @@ on:
   push:
     branches: [main]
     # paths: ['**.c', '**.cpp', '**.h', '**.hpp', '**.cxx', '**.hxx', '**.cc']
+env:
+  DAY_OF_WEEK: Monday
 
 jobs:
   pre-commit:
@@ -25,7 +27,7 @@ jobs:
     - name: Build project
       run: ./scripts/make_debug.sh
     - name: Run pre-commit on changed files
-      run: source ./.venv/bin/activate && pre-commit run &&  deactivate && echo "pre-commit-result=0" >>  $GITHUB_OUTPUT 
+      run: if source ./.venv/bin/activate && pre-commit run && deactivate; then  echo "pre-commit-result=0" >>  $GITHUB_OUTPUT  else echo "pre-commit-result=1" >>  $GITHUB_OUTPUT fi
       id: run_pre_commit
     - name: Pre-commit fails fast?!
       if: steps.run_pre_commit.outputs.pre-commit-result > 0
