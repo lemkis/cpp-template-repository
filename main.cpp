@@ -7,5 +7,11 @@
 
 // }
 
+#include <iostream>
 
-auto main() -> int { return 0; }
+
+auto main() -> int {
+    const auto i{0};
+    std::cout << i;
+    return 0;
+}
