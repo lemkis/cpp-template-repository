@@ -32,6 +32,10 @@ jobs:
       run: |
         alias clang-format='clang-format-18'
         alias clang-tidy='clang-tidy-18'
+        alias clang-tidy-14='clang-tidy-18'
+        alias clang-tidy-15='clang-tidy-18'
+        alias clang-tidy-16='clang-tidy-18'
+        alias clang-tidy-17='clang-tidy-18'
         if pre-commit run --all-files; then  
           echo "pre-commit-result=0" >>  $GITHUB_OUTPUT 
         else 
