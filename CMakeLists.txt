@@ -1,19 +1,21 @@
-cmake_minimum_required(VERSION 3.23)
+cmake_minimum_required(VERSION 3.28)
+project(std_module_example CXX)
 
-project(template_cpp C CXX)
-
-include(CMakePrintHelpers)
-
-
+# Turning off extensions avoids an issue with the clang 16 compiler
+# clang 17 and greater can avoid this setting
+set(CMAKE_CXX_EXTENSIONS OFF)
+# Set the version of C++ for the project
 set(CMAKE_CXX_STANDARD 26)
-set (ADDITIONAL_DEBUG_FLAGS " -ggdb -stdlib=libc++ -Wall -Wextra -Wpedantic -Werror")
-cmake_print_variables(ADDITIONAL_DEBUG_FLAGS)
-set (ADDITIONAL_DEBUG_FLAGS_FOR_CLANG "--extra-arg=-stdlib=libc++")
-cmake_print_variables(ADDITIONAL_DEBUG_FLAGS_FOR_CLANG)
-# set (CMAKE_CXX_COMPILER "/usr/local/bin/clang++")
-set (CMAKE_CXX_COMPILER "clang++-18")
-set (CMAKE_CXX_FLAGS_DEBUG ${ADDITIONAL_DEBUG_FLAGS})
-set(CMAKE_CXX_CLANG_TIDY clang-tidy-18 ${ADDITIONAL_DEBUG_FLAGS_FOR_CLANG})
-
-
-add_executable(${PROJECT_NAME} main.cpp )
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -ggdb -stdlib=libc++")
+# Create a library
+add_library(foo)
+# Add the module file to the library
+target_sources(foo
+  PUBLIC
+    FILE_SET CXX_MODULES FILES
+      foo.cxx
+)
+# Create an executable
+add_executable(hello main.cxx)
+# Link to the library foo
+target_link_libraries(hello foo)
