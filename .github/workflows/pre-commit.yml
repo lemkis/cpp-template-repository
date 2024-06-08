@@ -28,6 +28,7 @@ jobs:
       run: ./scripts/make_debug.sh
     - name: Run pre-commit on changed files
       run: |
+        alias clang-format='clang-format-18'
         if pre-commit run --files main.cpp; then  
           echo "pre-commit-result=0" >>  $GITHUB_OUTPUT 
         else 
