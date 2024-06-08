@@ -5,7 +5,7 @@ repos:
     hooks:
       - id: clang-format
       - id: clang-tidy
-        args: [--extra-arg=-std=gnu++26, --extra-arg=-stdlib=libc++]
+        args: [--extra-arg=-std=c++2b, --extra-arg=-stdlib=libc++]
       - id: oclint
       # - id: uncrustify
       - id: cppcheck
