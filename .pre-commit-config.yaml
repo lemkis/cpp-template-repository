@@ -1,4 +1,5 @@
 fail_fast: false
+files: ^main.cpp
 repos:
   - repo: https://github.com/pocc/pre-commit-hooks
     rev: 336fdd7c3cab698ead0b1c95157b9e74d3906b62
