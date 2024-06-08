@@ -23,11 +23,11 @@ jobs:
       with:
         python-version: '3.12' 
     - name: Configure
-      run: ./scripts/configure.sh 
+      run: pip install pre-commit cpplint && pre-commit install && pre-commit autoupdate --bleeding-edge
     - name: Build project
       run: ./scripts/make_debug.sh
     - name: Run pre-commit on changed files
-      run:  echo "pre-commit-result=$(bash ./scripts/run_all_hooks.sh)" >>  $GITHUB_OUTPUT  
+      run:  echo "pre-commit-result=$(pre-commit run)" >>  $GITHUB_OUTPUT  
       id: run_pre_commit
     - name: Pre-commit check
       if: steps.run_pre_commit.outputs.pre-commit-result > 0
