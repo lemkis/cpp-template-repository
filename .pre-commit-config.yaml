@@ -4,8 +4,9 @@ repos:
     rev: 336fdd7c3cab698ead0b1c95157b9e74d3906b62
     hooks:
       - id: clang-format
+        args: [--version=18]
       - id: clang-tidy
-        args: [--extra-arg=-std=c++2b, --extra-arg=-stdlib=libc++]
+        args: [--version=18, --extra-arg=-std=c++2b, --extra-arg=-stdlib=libc++]
       # - id: oclint
       # - id: uncrustify
       - id: cppcheck
