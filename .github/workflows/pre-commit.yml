@@ -30,7 +30,7 @@ jobs:
       run: ./scripts/make_debug.sh
     - name: Run clang-format on all module files
       run: |
-        if find . -iname '*.cxx' -o -iname '*.ixx' | xargs clang-format-18; then  
+        if find . -maxdepth 1 -iname '*.cxx' -o -iname '*.ixx' | xargs clang-format-18 --Werror --dry-run; then  
           echo "clang-format-result=0" >>  $GITHUB_OUTPUT 
         else 
           echo "clang-format-result=1" >>  $GITHUB_OUTPUT 
@@ -39,16 +39,28 @@ jobs:
       id: run_clang_format
     - name: Run clang-tidy on all module files
       run: |
-        if find . -iname '*.cxx' -o -iname '*.ixx' | xargs clang-tidy-18 --extra-arg=-stdlib=libc++ -p build/debug/ -header-filter=.*; then  
+        if find . -maxdepth 1 -iname '*.cxx' -o -iname '*.ixx' | xargs clang-tidy-18 --extra-arg=-stdlib=libc++ -p build/debug/ -header-filter=.*; then  
           echo "clang-tidy-result=0" >>  $GITHUB_OUTPUT 
         else 
           echo "clang-tidy-result=1" >>  $GITHUB_OUTPUT 
         fi;
       shell: bash
       id: run_clang_tidy
+    - name: Run cppcheck on all module files
+      run: |
+        if find . -maxdepth 1 -iname '*.cxx' -o -iname '*.ixx' | xargs ./external/cppcheck/build/bin/cppcheck  --check-level=exhaustive --cppcheck-build-dir=./build/debug/cppcheck --enable=all --suppress=missingIncludeSystem -j5 --std=c++26; then  
+          echo "cppcheck-result=0" >>  $GITHUB_OUTPUT 
+        else 
+          echo "cppcheck-result=1" >>  $GITHUB_OUTPUT 
+        fi;
+      shell: bash
+      id: run_cppcheck
     - name: clang-format check
       if: steps.run_clang_format.outputs.clang-format-result > 0
       run: echo "Some of your c++ files are not formatted according to the .clang-format file" && exit 1
     - name: clang-tidy check
       if: steps.run_clang_tidy.outputs.clang-tidy-result > 0
       run: echo "You failed to fulfill some of requirements posed in the .clang-tidy file" && exit 1
+    - name: cppcheck check
+      if: steps.run_cppcheck.outputs.cppcheck-result > 0
+      run: echo "You failed to fulfill some of requirements posed by cppcheck" && exit 1
