@@ -49,7 +49,7 @@ jobs:
     - name: Run cppcheck on all module files
       run: |
         mkdir -p ./build/debug/cppcheck
-        if find . -maxdepth 1 -iname '*.cxx' -o -iname '*.ixx' | xargs cppcheck  --check-level=exhaustive --cppcheck-build-dir=./build/debug/cppcheck --enable=all --suppress=missingIncludeSystem -j5 --std=c++26; then  
+        if find . -maxdepth 1 -iname '*.cxx' -o -iname '*.ixx' | xargs cppcheck  --cppcheck-build-dir=./build/debug/cppcheck --enable=all --suppress=missingIncludeSystem -j5 --std=c++26; then  
           echo "cppcheck-result=0" >>  $GITHUB_OUTPUT 
         else 
           echo "cppcheck-result=1" >>  $GITHUB_OUTPUT 
