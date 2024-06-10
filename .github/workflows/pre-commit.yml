@@ -48,6 +48,7 @@ jobs:
       id: run_clang_tidy
     - name: Run cppcheck on all module files
       run: |
+        find . -maxdepth 1 -iname '*.cxx' -o -iname '*.ixx' | xargs ./external/cppcheck/build/bin/cppcheck  --check-level=exhaustive --cppcheck-build-dir=./build/debug/cppcheck --enable=all --suppress=missingIncludeSystem -j5 --std=c++26
         if find . -maxdepth 1 -iname '*.cxx' -o -iname '*.ixx' | xargs ./external/cppcheck/build/bin/cppcheck  --check-level=exhaustive --cppcheck-build-dir=./build/debug/cppcheck --enable=all --suppress=missingIncludeSystem -j5 --std=c++26; then  
           echo "cppcheck-result=0" >>  $GITHUB_OUTPUT 
         else 
