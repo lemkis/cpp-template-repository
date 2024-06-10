@@ -1,7 +1,11 @@
+
 import foo;
 
+#include <string_view>
+
 auto main() -> int {
-    foo f{"goodbye world!"};
+    constexpr std::string_view goodbye{"goodbye world!"};
+    foo f{goodbye};
     f.helloworld();
 
     return 0;
